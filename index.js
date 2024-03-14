@@ -17,6 +17,30 @@ function tree(arr){
     }
     return{
         root: buildTree(arr, 0, arr.length-1),
+        insert(value){
+            if(isNaN(value)){
+                return "Error, please enter number";
+            }
+            let currNode = this.root;
+            let prevNode;
+            while(currNode!==null){
+                if(value >= currNode.data){
+                    prevNode = currNode;
+                    currNode = currNode.right;
+                } else if(value < currNode.data){
+                    prevNode = currNode;
+                    currNode = currNode.left;
+                }
+            }
+            currNode = treeNode();
+            currNode.data = Number(value);
+            if(currNode.data < prevNode.data){
+                prevNode.left = currNode;
+            } else {
+                prevNode.right = currNode;
+            }
+            return this.root;
+        }
     }
 }
 
@@ -49,4 +73,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
   let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
   let bst = tree(arr);
+  console.log(bst.insert(9));
   prettyPrint(bst.root);
