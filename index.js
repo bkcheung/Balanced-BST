@@ -40,6 +40,45 @@ function tree(arr){
                 prevNode.right = currNode;
             }
             return this.root;
+        },
+        delete(value){
+            let delNode = this.root;
+            let prevNode;
+            while(delNode.data!==value){
+                if(value >= delNode.data){
+                    prevNode = delNode;
+                    delNode = delNode.right;
+                } else if(value < delNode.data){
+                    prevNode = delNode;
+                    delNode = delNode.left;
+                }
+            }
+            console.log(`Found value: ${delNode.data}`)
+            //check how many children
+            let rightChild = delNode.right;
+            let leftChild = delNode.left;
+            //No children; leaf node
+            if(rightChild===null && leftChild===null){
+                delNode.data = null;
+                if(delNode.data < prevNode.data){
+                    prevNode.left = null;
+                } else {
+                    prevNode.right = null;
+                }
+            }
+            // //one child
+            // if(rightChild!==null || leftChild!==null){
+
+            // }
+            // //two children
+            // if(rightChild!==null && leftChild!==null){
+
+            // }
+            // //Relationship between prev node and node to delete
+            // if(delNode.data < prevNode.data){
+                
+            // }
+            
         }
     }
 }
@@ -73,5 +112,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
   let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
   let bst = tree(arr);
-  console.log(bst.insert(9));
+  bst.delete(324);
   prettyPrint(bst.root);
