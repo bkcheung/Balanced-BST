@@ -41,51 +41,34 @@ function tree(arr){
             }
             return this.root;
         },
-        delete(value){
-            let delNode = this.root;
-            let prevNode;
-            while(delNode.data!==value){
-                if(value >= delNode.data){
-                    prevNode = delNode;
-                    delNode = delNode.right;
-                } else if(value < delNode.data){
-                    prevNode = delNode;
-                    delNode = delNode.left;
+        min(root){
+            let currNode = root;
+            while(currNode.left!==null){
+                currNode = currNode.left;
+            }
+            return currNode.data;
+        },
+        delete(root, value){
+            if(root === null){ //base case
+                return root;
+            }
+            if(root.data > value){ //search in left subtree
+                root.left = this.delete(root.left,value);
+            } else if(root.data < value){ //search in right subtree
+                root.right = this.delete(root.right,value);
+            } else { //root has value we want to delete
+                if(root.left===null && root.right===null){ //root has no children
+                    return null;
+                } else if(root.left===null){ //if root has 1 child
+                    return root.right;
+                } else if(root.right===null){ 
+                    return root.left;
+                } else { //if root has 2 children
+                    root.data = this.min(root.right);
+                    root.right = this.delete(root.right, root.data);
                 }
             }
-            console.log(`Found value: ${delNode.data}`)
-            let rightChild = delNode.right;
-            let leftChild = delNode.left;
-            //No children; leaf node
-            if(rightChild===null && leftChild===null){
-                delNode.data = null;
-                if(delNode.data < prevNode.data){
-                    prevNode.left = null;
-                } else {
-                    prevNode.right = null;
-                }
-            }
-            //one child
-            if(rightChild!==null || leftChild!==null){
-                if(rightChild!==null){
-                    console.log("del right");
-                    delNode.data = rightChild.data;
-                    delNode.right = null;
-                } else{
-                    console.log("del left");
-                    delNode.data = leftChild.data;
-                    delNode.left = null;
-                }
-            }
-            // //two children
-            // if(rightChild!==null && leftChild!==null){
-
-            // }
-            // //Relationship between prev node and node to delete
-            // if(delNode.data < prevNode.data){
-                
-            // }
-            
+            return root;
         }
     }
 }
@@ -117,7 +100,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
   };
 
-  let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+  let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 2];
   let bst = tree(arr);
-  bst.delete(23);
+  prettyPrint(bst.root);
+  bst.delete(bst.root, 67);
   prettyPrint(bst.root);
