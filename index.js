@@ -54,7 +54,6 @@ function tree(arr){
                 }
             }
             console.log(`Found value: ${delNode.data}`)
-            //check how many children
             let rightChild = delNode.right;
             let leftChild = delNode.left;
             //No children; leaf node
@@ -66,10 +65,18 @@ function tree(arr){
                     prevNode.right = null;
                 }
             }
-            // //one child
-            // if(rightChild!==null || leftChild!==null){
-
-            // }
+            //one child
+            if(rightChild!==null || leftChild!==null){
+                if(rightChild!==null){
+                    console.log("del right");
+                    delNode.data = rightChild.data;
+                    delNode.right = null;
+                } else{
+                    console.log("del left");
+                    delNode.data = leftChild.data;
+                    delNode.left = null;
+                }
+            }
             // //two children
             // if(rightChild!==null && leftChild!==null){
 
@@ -112,5 +119,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
   let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
   let bst = tree(arr);
-  bst.delete(324);
+  bst.delete(23);
   prettyPrint(bst.root);
