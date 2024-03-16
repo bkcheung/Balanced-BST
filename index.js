@@ -25,7 +25,7 @@ function tree(arr){
             }
             if(root.data <= value){
                 root.right = this.insert(root.right,value);
-            } else if(root.data > value){
+            }else if(root.data > value){
                 root.left = this.insert(root.left,value)
             }
             return root;
@@ -58,6 +58,16 @@ function tree(arr){
                 }
             }
             return root;
+        },
+        find(root,value){
+            if(root===null || root.data===value){
+                return root;
+            }
+            if(root.data > value){
+                return this.find(root.left, value);
+            }else{
+                return this.find(root.right, value);
+            }
         }
     }
 }
@@ -95,3 +105,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(bst.root);
   bst.delete(bst.root, 67);
   prettyPrint(bst.root);
+  console.log(bst.find(bst.root, 25));
+  
