@@ -17,29 +17,18 @@ function tree(arr){
     }
     return{
         root: buildTree(arr, 0, arr.length-1),
-        insert(value){
-            if(isNaN(value)){
-                return "Error, please enter number";
+        insert(root, value){
+            if(root === null){
+                root = treeNode();
+                root.data = value;
+                return root;
             }
-            let currNode = this.root;
-            let prevNode;
-            while(currNode!==null){
-                if(value >= currNode.data){
-                    prevNode = currNode;
-                    currNode = currNode.right;
-                } else if(value < currNode.data){
-                    prevNode = currNode;
-                    currNode = currNode.left;
-                }
+            if(root.data <= value){
+                root.right = this.insert(root.right,value);
+            } else if(root.data > value){
+                root.left = this.insert(root.left,value)
             }
-            currNode = treeNode();
-            currNode.data = Number(value);
-            if(currNode.data < prevNode.data){
-                prevNode.left = currNode;
-            } else {
-                prevNode.right = currNode;
-            }
-            return this.root;
+            return root;
         },
         min(root){
             let currNode = root;
@@ -100,8 +89,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
   };
 
-  let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 2];
+  let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
   let bst = tree(arr);
+  bst.insert(bst.root, 25)
   prettyPrint(bst.root);
   bst.delete(bst.root, 67);
   prettyPrint(bst.root);
