@@ -68,6 +68,19 @@ function tree(arr){
             }else{
                 return this.find(root.right, value);
             }
+        },
+        levelOrder(callback){
+            let queue = [this.root];
+            let nums = []
+            let currNode;
+            while(queue.length>0){
+                currNode = queue.shift();
+                nums.push(currNode.data); 
+                if(currNode.left!==null) queue.push(currNode.left);
+                if(currNode.right!==null) queue.push(currNode.right);
+                if(callback) callback(currNode);
+            }
+            if(!callback)return nums;
         }
     }
 }
@@ -101,9 +114,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
   let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
   let bst = tree(arr);
-  bst.insert(bst.root, 25)
   prettyPrint(bst.root);
-  bst.delete(bst.root, 67);
-  prettyPrint(bst.root);
-  console.log(bst.find(bst.root, 25));
-  
+  console.log(bst.levelOrder());
