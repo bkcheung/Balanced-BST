@@ -8,12 +8,8 @@ function treeNode(data, left = null, right = null){
 
 function tree(arr){
     if(Array.isArray(arr)){
-        arr = arr.sort((a,b)=>a-b); //sort
-        let prev;
-        for(let i=0; i<arr.length; i++){
-            if(arr[i]===prev){ arr.splice(i,1);} //remove duplicates
-            prev = arr[i];
-        }
+        //sort and remove duplicates
+        arr = [...new Set(arr.sort((a,b)=>a-b))]; 
     }
     return{
         root: buildTree(arr, 0, arr.length-1),
@@ -146,7 +142,8 @@ function tree(arr){
         },
         rebalance(root){
             const arr = this.inOrder(root);
-            return buildTree(arr, 0, arr.length-1)
+            this.root = buildTree(arr, 0, arr.length-1);
+            return this.root;
         }
     }
 }
@@ -176,15 +173,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node.left !== null) {
       prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
-  };
-
-//   let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-//   let bst = tree(arr);
-//   prettyPrint(bst.root);
-//   console.log(bst.depth(bst.find(bst.root,1), bst.root));
-//   console.log(bst.isBalanced(bst.root));
-//   prettyPrint(bst.rebalance(bst.root));
-
+}
 function randNumArray(num){
     const arr = [];
     for(let i=0; i<num; i++){
@@ -197,16 +186,18 @@ let bst = tree(randNumArray(30));
 prettyPrint(bst.root);
 console.log(bst.isBalanced(bst.root));
 //Traverse
-console.log(bst.levelOrder());
-console.log(bst.inOrder(bst.root));
-console.log(bst.preOrder(bst.root));
-console.log(bst.postOrder(bst.root));
+// console.log(bst.levelOrder());
+// console.log(bst.inOrder(bst.root));
+// console.log(bst.preOrder(bst.root));
+// console.log(bst.postOrder(bst.root));
 
-//unbalance the tree
+// //unbalance the tree
 for(let i=0; i<30; i++){
-    bst.insert(bst.root, Math.round(Math.random()*50));
+    bst.insert(bst.root, Math.round(Math.random()*30));
 }
 prettyPrint(bst.root);
 console.log(bst.isBalanced(bst.root));
-
+//rebalance tree
+prettyPrint(bst.rebalance(bst.root));
+console.log(bst.isBalanced(bst.root));
 
