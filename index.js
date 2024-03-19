@@ -18,16 +18,18 @@ function tree(arr){
     return{
         root: buildTree(arr, 0, arr.length-1),
         insert(root, value){
+            //skip adding value if it already exists
+            if(this.find(root, value)) return;
+            //Base case
             if(root === null){
                 root = treeNode();
                 root.data = value;
                 return root;
             }
-            if(root.data <= value){
-                root.right = this.insert(root.right,value);
-            }else if(root.data > value){
-                root.left = this.insert(root.left,value)
-            }
+            //traverse right
+            if(root.data <= value) root.right = this.insert(root.right,value);
+            //traverse left
+            else if(root.data > value) root.left = this.insert(root.left,value);
             return root;
         },
         min(root){
@@ -138,7 +140,9 @@ function tree(arr){
             const rightHeight = this.height(root.right);
             if(Math.abs(leftHeight-rightHeight)<2){
                 return true;
-            } 
+            } else{
+                return false;
+            }
         },
         rebalance(root){
             const arr = this.inOrder(root);
@@ -191,3 +195,18 @@ function randNumArray(num){
 
 let bst = tree(randNumArray(30));
 prettyPrint(bst.root);
+console.log(bst.isBalanced(bst.root));
+//Traverse
+console.log(bst.levelOrder());
+console.log(bst.inOrder(bst.root));
+console.log(bst.preOrder(bst.root));
+console.log(bst.postOrder(bst.root));
+
+//unbalance the tree
+for(let i=0; i<30; i++){
+    bst.insert(bst.root, Math.round(Math.random()*50));
+}
+prettyPrint(bst.root);
+console.log(bst.isBalanced(bst.root));
+
+
