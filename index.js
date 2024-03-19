@@ -131,6 +131,14 @@ function tree(arr){
             else if(root.data > node.data){
                 return this.depth(node, root.left, depth+=1);
             } 
+        },
+        isBalanced(root){
+            if(root===null) return;
+            const leftHeight = this.height(root.left);
+            const rightHeight = this.height(root.right);
+            if(Math.abs(leftHeight-rightHeight)<2){
+                return true;
+            } 
         }
     }
 }
@@ -166,3 +174,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   let bst = tree(arr);
   prettyPrint(bst.root);
   console.log(bst.depth(bst.find(bst.root,1), bst.root));
+  console.log(bst.isBalanced(bst.root));
