@@ -83,23 +83,38 @@ function tree(arr){
             if(!callback)return nums;
         },
         inOrder(root, callback, arr=[]){
-            if(root===null){
-                return root;
-            }
+            //base case
+            if(root===null) return root;
+            //traverse left subtree
             if(root.left) this.inOrder(root.left, callback, arr);
+            //visit node
             arr.push(root.data);
+            //traverse right subtree
             if(root.right) this.inOrder(root.right,callback, arr);
             return arr;
         },
         preOrder(root, callback, arr=[]){
-            if(root===null){
-                return root;
-            }
+            //base case
+            if(root===null) return root;
+            //visit node
             arr.push(root.data);
+            //traverse left subtree
             if(root.left) this.preOrder(root.left, callback, arr);
+            //traverse right subtree
             if(root.right) this.preOrder(root.right, callback, arr);
             return arr;
         },
+        postOrder(root, callback, arr=[]){
+            //base case
+            if(root===null) return root;
+            //traverse left subtree
+            if(root.left) this.postOrder(root.left, callback, arr);
+            //traverse right subtree
+            if(root.right) this.postOrder(root.right, callback, arr);
+            //visit node
+            arr.push(root.data);
+            return arr;
+        }
     }
 }
 
@@ -133,4 +148,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
   let bst = tree(arr);
   prettyPrint(bst.root);
-  console.log(bst.preOrder(bst.root));
+  console.log(bst.postOrder(bst.root));
