@@ -174,9 +174,20 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
   };
 
-  let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-  let bst = tree(arr);
-  prettyPrint(bst.root);
-  console.log(bst.depth(bst.find(bst.root,1), bst.root));
-  console.log(bst.isBalanced(bst.root));
-  prettyPrint(bst.rebalance(bst.root));
+//   let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+//   let bst = tree(arr);
+//   prettyPrint(bst.root);
+//   console.log(bst.depth(bst.find(bst.root,1), bst.root));
+//   console.log(bst.isBalanced(bst.root));
+//   prettyPrint(bst.rebalance(bst.root));
+
+function randNumArray(num){
+    const arr = [];
+    for(let i=0; i<num; i++){
+        arr.push(Math.round(Math.random()*num));
+    }
+    return arr;
+}
+
+let bst = tree(randNumArray(30));
+prettyPrint(bst.root);
