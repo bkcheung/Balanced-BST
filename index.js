@@ -139,6 +139,10 @@ function tree(arr){
             if(Math.abs(leftHeight-rightHeight)<2){
                 return true;
             } 
+        },
+        rebalance(root){
+            const arr = this.inOrder(root);
+            return buildTree(arr, 0, arr.length-1)
         }
     }
 }
@@ -175,3 +179,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(bst.root);
   console.log(bst.depth(bst.find(bst.root,1), bst.root));
   console.log(bst.isBalanced(bst.root));
+  prettyPrint(bst.rebalance(bst.root));
