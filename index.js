@@ -121,6 +121,16 @@ function tree(arr){
             const leftHeight = this.height(node.left);
             const rightHeight = this.height(node.right);
             return Math.max(leftHeight, rightHeight) + 1;
+        },
+        depth(node, root, depth=0){
+            if(node===null||root===null) return;
+            if(node.data===root.data) return depth;
+            if(root.data < node.data){
+                return this.depth(node, root.right, depth+=1);
+            } 
+            else if(root.data > node.data){
+                return this.depth(node, root.left, depth+=1);
+            } 
         }
     }
 }
@@ -155,4 +165,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
   let bst = tree(arr);
   prettyPrint(bst.root);
-  console.log(bst.height(bst.root));
+  console.log(bst.depth(bst.find(bst.root,1), bst.root));
