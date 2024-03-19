@@ -90,7 +90,16 @@ function tree(arr){
             arr.push(root.data);
             if(root.right) this.inOrder(root.right,callback, arr);
             return arr;
-        }
+        },
+        preOrder(root, callback, arr=[]){
+            if(root===null){
+                return root;
+            }
+            arr.push(root.data);
+            if(root.left) this.preOrder(root.left, callback, arr);
+            if(root.right) this.preOrder(root.right, callback, arr);
+            return arr;
+        },
     }
 }
 
@@ -124,4 +133,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
   let bst = tree(arr);
   prettyPrint(bst.root);
-  console.log(bst.inOrder(bst.root));
+  console.log(bst.preOrder(bst.root));
