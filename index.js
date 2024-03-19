@@ -161,6 +161,9 @@ function buildTree(arr, start, end){
     return root;
 }
 
+module.exports = tree;
+
+/*
 //Testing
 const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node === null) {
@@ -186,12 +189,11 @@ let bst = tree(randNumArray(30));
 prettyPrint(bst.root);
 console.log(bst.isBalanced(bst.root));
 //Traverse
-// console.log(bst.levelOrder());
-// console.log(bst.inOrder(bst.root));
-// console.log(bst.preOrder(bst.root));
-// console.log(bst.postOrder(bst.root));
-
-// //unbalance the tree
+console.log(bst.levelOrder());
+console.log(bst.inOrder(bst.root));
+console.log(bst.preOrder(bst.root));
+console.log(bst.postOrder(bst.root));
+//unbalance the tree
 for(let i=0; i<30; i++){
     bst.insert(bst.root, Math.round(Math.random()*30));
 }
@@ -200,4 +202,9 @@ console.log(bst.isBalanced(bst.root));
 //rebalance tree
 prettyPrint(bst.rebalance(bst.root));
 console.log(bst.isBalanced(bst.root));
-
+//Traverse
+console.log(bst.levelOrder());
+console.log(bst.inOrder(bst.root));
+console.log(bst.preOrder(bst.root));
+console.log(bst.postOrder(bst.root));
+*/
