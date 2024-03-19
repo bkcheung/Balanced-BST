@@ -114,6 +114,13 @@ function tree(arr){
             //visit node
             arr.push(root.data);
             return arr;
+        },
+        height(node){
+            //base case
+            if(node===null) return 0;
+            const leftHeight = this.height(node.left);
+            const rightHeight = this.height(node.right);
+            return Math.max(leftHeight, rightHeight) + 1;
         }
     }
 }
@@ -148,4 +155,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
   let bst = tree(arr);
   prettyPrint(bst.root);
-  console.log(bst.postOrder(bst.root));
+  console.log(bst.height(bst.root));
